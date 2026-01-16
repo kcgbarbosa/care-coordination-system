@@ -16,6 +16,12 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
+
 import { useState } from "react"
 import { careItems } from "../references"
 
@@ -23,10 +29,10 @@ function MainTable() {
 
   const [careItem, setCareItem] = useState(careItems)
 
-  const handleStatusChange = (newStatus, targetId) => {
+  const handleStatusChange = (newStatus, targetid) => {
     setCareItem(prevItems => prevItems.map(item => {
-      if(item.patient.id === targetId) {
-        return { ...item, status: newStatus};
+      if (item.patient.id === targetid) {
+        return { ...item, status: newStatus }
       }
       return item;
     }))
@@ -36,7 +42,7 @@ function MainTable() {
     <div>
       <h1 className="flex justify-center py-10 text-2xl">Care Coordination System</h1>
 
-      <Table className="">
+      <Table>
         <TableCaption> Manage patient care items</TableCaption>
         <TableHeader>
           <TableRow>
@@ -51,7 +57,19 @@ function MainTable() {
         <TableBody>
           {careItem.map((item) => (
             <TableRow key={item.patient.id}>
-              <TableCell>{item.patient.name}</TableCell>
+              <Tooltip>
+                <TooltipTrigger asChild >
+                  <TableCell tabIndex={0}>{item.patient.name}</TableCell>
+                </TooltipTrigger>
+                <TooltipContent side="left">
+                  {"Age: " + item.patient.age}
+                  {/* todo: find better solution for line breaks */}
+                  <p></p>
+                  {"Id: " + item.patient.id}
+                  <p></p>
+                  {"Last Visit: " + item.patient.lastVisit}
+                </TooltipContent>
+              </Tooltip>
               <TableCell>{item.category}</TableCell>
               <TableCell>
                 <Select value={item.status} onValueChange={(value) => handleStatusChange(value, item.patient.id)} >

@@ -1,3 +1,4 @@
+import { TooltipProvider } from "@radix-ui/react-tooltip"
 import MainTable from "./components/MainTable"
 
 function App() {
