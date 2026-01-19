@@ -29,13 +29,12 @@ function MainTable() {
 
   const [careItem, setCareItem] = useState(careItems)
 
-  const handleStatusChange = (newStatus, targetid) => {
-    setCareItem(prevItems => prevItems.map(item => {
-      if (item.patient.id === targetid) {
-        return { ...item, status: newStatus }
-      }
-      return item;
-    }))
+  const handleStatusChange = (newStatus, targetId) => {
+    setCareItem(prev => prev.map(item =>
+      item.patient.id === targetId 
+        ? { ...item, status: newStatus } 
+        : item
+    ))
   }
 
   return (
@@ -56,8 +55,8 @@ function MainTable() {
         </TableHeader>
         <TableBody>
           {careItem.map((item) => (
-            <TableRow key={item.patient.id}>
-              <Tooltip>
+            <TableRow key={item.patient.id} className={`p-4 ${item.status === "Overdue" ? "bg-red-400 hover:bg-red-300" : "bg-primary-100"} `}>    
+            <Tooltip>
                 <TooltipTrigger asChild >
                   <TableCell tabIndex={0}>{item.patient.name}</TableCell>
                 </TooltipTrigger>
@@ -70,28 +69,29 @@ function MainTable() {
                   {"Last Visit: " + item.patient.lastVisit}
                 </TooltipContent>
               </Tooltip>
-              <TableCell>{item.category}</TableCell>
-              <TableCell>
-                <Select value={item.status} onValueChange={(value) => handleStatusChange(value, item.patient.id)} >
-                  <SelectTrigger>
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="Pending">Pending</SelectItem>
-                    <SelectItem value="In Progress">In Progress</SelectItem>
-                    <SelectItem value="Completed">Completed</SelectItem>
-                    <SelectItem value="Overdue">Overdue</SelectItem>
-                  </SelectContent>
-                </Select>
-              </TableCell>
-              <TableCell>{item.assignedStaff}</TableCell>
-              <TableCell>{item.dueDate}</TableCell>
-              <TableCell>{item.notes}</TableCell>
-            </TableRow>
+        <TableCell>{item.category}</TableCell>
+        <TableCell>
+          <Select
+            onValueChange={(value) => handleStatusChange(value, item.patient.id)}>
+            <SelectTrigger>
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="Pending">Pending</SelectItem>
+              <SelectItem value="In Progress">In Progress</SelectItem>
+              <SelectItem value="Completed">Completed</SelectItem>
+              <SelectItem value="Overdue">Overdue</SelectItem>
+            </SelectContent>
+          </Select>
+        </TableCell>
+        <TableCell>{item.assignedStaff}</TableCell>
+        <TableCell>{item.dueDate}</TableCell>
+        <TableCell>{item.notes}</TableCell>
+      </TableRow>
           ))}
-        </TableBody>
-      </Table>
-    </div>
+      </TableBody>
+    </Table >
+    </div >
   )
 }
 
