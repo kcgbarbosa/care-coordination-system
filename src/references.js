@@ -9,7 +9,7 @@ export const careItems = [
     category: "temp category",
     status: "",
     assignedStaff: "temp staff",
-    dueDate: "temp date",
+    dueDate: "2026-01-23",
     notes: "temp notes"
   },
 
@@ -23,7 +23,7 @@ export const careItems = [
     category: "temp category",
     status: "",
     assignedStaff: "temp staff",
-    dueDate: "temp date",
+    dueDate: "2026-01-23",
     notes: "temp notes"
   },
   {
@@ -36,7 +36,7 @@ export const careItems = [
     category: "temp category",
     status: "",
     assignedStaff: "temp staff",
-    dueDate: "temp date",
+    dueDate: "2026-01-23",
     notes: "temp notes"
   },
 
@@ -50,7 +50,7 @@ export const careItems = [
     category: "temp category",
     status: "",
     assignedStaff: "temp staff",
-    dueDate: "temp date",
+    dueDate: "2026-01-23",
     notes: "temp notes"
   },
 
@@ -64,10 +64,7 @@ export const careItems = [
     category: "temp category",
     status: "",
     assignedStaff: "temp staff",
-    dueDate: "temp date",
+    dueDate: "2026-01-11",
     notes: "temp notes"
   }
 ]
-
-
-

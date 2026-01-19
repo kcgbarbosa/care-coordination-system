@@ -27,8 +27,6 @@ The application focuses on clarity and usability for non‑technical users, prov
 
 ##  ✅ Completed Development Tickets
 
----
-
 ## Ticket CCS-101 — Table of Care Items (UI)
 
 ### Objective:
@@ -37,7 +35,7 @@ Provide a clear and organized view of care coordination items for internal staff
 
 ### Acceptance Criteria
 
-- Render at least **5 mock items**, each of which including: 
+* Render at least **5 mock items**, each of which including: 
 1. Patient Name
 2. Category
 3. Status
@@ -45,10 +43,10 @@ Provide a clear and organized view of care coordination items for internal staff
 5. Due Date
 6. Optional notes
 
-- Use **shadcn Table** component
-- Add minimal Tailwind styling (consistent spacing, readable fonts)
-- Table should be **scrollable** if content overflows
-- Table header should remain **fixed** when scrolling the list
+* Use **shadcn Table** component
+* Add minimal Tailwind styling (consistent spacing, readable fonts)
+* Table should be **scrollable** if content overflows
+* Table header should remain **fixed** when scrolling the list
 
 ### Implementation:
 
@@ -71,14 +69,14 @@ Update project to have inline editable Status field with stateful data
 
 ### Acceptance Criteria
 
-- Use a dropdown/select component
-- Status options:
-  - Pending
-  - In Progress
-  - Completed
-  - Overdue
-- Changing the value updates local state
-- Table updates immediately to reflect the selected status
+* Use a dropdown/select component
+* Status options:
+  * Pending
+  * In Progress
+  * Completed
+  * Overdue
+* Changing the value updates local state
+* Table updates immediately to reflect the selected status
 
 ### Implementation:
 
@@ -101,10 +99,10 @@ Maintain a compact table view while providing on-demand access to secondary pati
 
 ### Acceptance Criteria
 
-- Implement a hover-triggered tooltip on the **Patient Name** field
-- Tooltip displays **Age, Unique ID, and Last Visit Date**
-- Tooltip displays without affecting table layout and UX
-- Tooltip remains visible and aligned during vertical table scrolling
+* Implement a hover-triggered tooltip on the **Patient Name** field
+* Tooltip displays **Age, Unique ID, and Last Visit Date**
+* Tooltip displays without affecting table layout and UX
+* Tooltip remains visible and aligned during vertical table scrolling
 
 ### Implementation
 
@@ -120,6 +118,30 @@ Maintain a compact table view while providing on-demand access to secondary pati
 
 ---
 
+## Ticket CCS-104 — Highlight Overdue Items
 
+**Objective:** Provide visual cues for tasks requiring immediate attention based on status and due date.
+
+### Acceptance Criteria
+
+* Implement conditional styling for rows where:
+1. `Status` is strictly equal to **"Overdue"**.
+2. The `DueDate` is prior to the current system date.
+
+* Apply a distinct visual indicator to identified rows.
+* Ensure styling is reactive; removing the "Overdue" status must immediately revert the row to standard styling.
+
+### Implementation
+
+* Implemented conditional row styling for item status and due date cells
+* Compared each item’s dueDate against the current system date to determine overdue state
+* Applied styling declaratively within the table row, ensuring immediate UI updates when status or date values change
+
+### Decisions & Rationale
+
+* Date Handling: Normalized dates at the point of comparison instead of preprocessing data globally, reducing unnecessary complexity
+* Simplicity: Avoided introducing additional state or side‑effects since overdue status can be fully derived from current data and runtime context
+
+---
 
 
