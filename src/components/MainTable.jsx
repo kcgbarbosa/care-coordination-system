@@ -24,6 +24,7 @@ import {
 
 import { useState } from "react"
 import { careItems } from "../references"
+import EmptyStateMessage from "./EmptyStateMessage"
 
 function MainTable() {
 
@@ -55,51 +56,53 @@ function MainTable() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {careItem.map((item) => (
-            <TableRow
-              key={item.patient.id}
-            >
-              <Tooltip>
-                <TooltipTrigger asChild >
-                  <TableCell tabIndex={0}>{item.patient.name}</TableCell>
-                </TooltipTrigger>
-                <TooltipContent side="left">
-                  {"Age: " + item.patient.age}
-                  {/* todo: find better solution for line breaks */}
-                  <p></p>
-                  {"Id: " + item.patient.id}
-                  <p></p>
-                  {"Last Visit: " + item.patient.lastVisit}
-                </TooltipContent>
-              </Tooltip>
-              <TableCell>{item.category}</TableCell>
-              <TableCell className={`${item.status === "Overdue"
-                ? "bg-red-400 hover:bg-red-300"
-                : "bg-primary-100"} `}>
-                <Select
-                  onValueChange={(value) => handleStatusChange(value, item.patient.id)}>
-                  <SelectTrigger>
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="Pending">Pending</SelectItem>
-                    <SelectItem value="In Progress">In Progress</SelectItem>
-                    <SelectItem value="Completed">Completed</SelectItem>
-                    <SelectItem value="Overdue">Overdue</SelectItem>
-                  </SelectContent>
-                </Select>
-              </TableCell>
-              <TableCell>{item.assignedStaff}</TableCell>
-              <TableCell
-                className={`${Date.parse(item.dueDate) < currentDate
-                  ? "bg-red-400"
-                  : "bg-primary-100"}`}
-              >
-                {item.dueDate}
-              </TableCell>
-              <TableCell>{item.notes}</TableCell>
-            </TableRow>
-          ))}
+          {careItem.length === 0 ? (
+            <EmptyStateMessage />
+          ) : (
+            careItem.map((item) => (
+              <TableRow key={item.patient.id}>
+                <Tooltip>
+                  <TooltipTrigger asChild >
+                    <TableCell tabIndex={0}>{item.patient.name}</TableCell>
+                  </TooltipTrigger>
+                  <TooltipContent side="left">
+                    {"Age: " + item.patient.age}
+                    {/* todo: find better solution for line breaks */}
+                    <p></p>
+                    {"Id: " + item.patient.id}
+                    <p></p>
+                    {"Last Visit: " + item.patient.lastVisit}
+                  </TooltipContent>
+                </Tooltip>
+                <TableCell>{item.category}</TableCell>
+                <TableCell className={`${item.status === "Overdue"
+                  ? "bg-red-400 hover:bg-red-300"
+                  : "bg-primary-100"} `}>
+                  <Select
+                    onValueChange={(value) => handleStatusChange(value, item.patient.id)}>
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="Pending">Pending</SelectItem>
+                      <SelectItem value="In Progress">In Progress</SelectItem>
+                      <SelectItem value="Completed">Completed</SelectItem>
+                      <SelectItem value="Overdue">Overdue</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </TableCell>
+                <TableCell>{item.assignedStaff}</TableCell>
+                <TableCell
+                  className={`${Date.parse(item.dueDate) < currentDate
+                    ? "bg-red-400"
+                    : "bg-primary-100"}`}
+                >
+                  {item.dueDate}
+                </TableCell>
+                <TableCell>{item.notes}</TableCell>
+              </TableRow>
+            ))
+          )}
         </TableBody>
       </Table >
     </div >

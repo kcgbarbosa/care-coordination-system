@@ -144,4 +144,24 @@ Maintain a compact table view while providing on-demand access to secondary pati
 
 ---
 
+## Ticket CCS-105 — Empty State Implementation
+
+**Objective:** Provide clear user feedback when no data is available in the current view.
+
+### Acceptance Criteria
+
+* Render a fallback UI fragment when the `careItem` array length is zero.
+* Display a centered, neutral message: **"No care coordination items to display."**
+* Ensure the table header remains visible to provide context even when the body is empty.
+
+### Implementation
+
+* Implemented conditional rendering based on the presence of table data.
+* Applied appropriate colSpan and padding to ensure proper layout and alignment.
+
+### Decisions & Rationale
+
+* Data handling: All required data was already available in state, so the solution focused on conditional rendering to determine whether to display table rows or an empty state message.
+
+---
 
